@@ -1,5 +1,4 @@
 class Mentor:
-    """Родительский класс для преподавателей"""
 
     def __init__(self, name, surname, courses_attached):
         self.name = name
@@ -11,7 +10,6 @@ class Mentor:
 
 
 class Lecturer(Mentor):
-    """Класс для лекторов"""
 
     def __init__(self, name, surname, courses_attached):
         super().__init__(name, surname, courses_attached)
@@ -22,7 +20,6 @@ class Lecturer(Mentor):
         return f"{super().__str__()}\nСредняя оценка за лекции: {average_grade:.1f}"
 
     def get_average_grade(self):
-        """Возвращает среднюю оценку за лекции"""
         total_grades = 0
         num_grades = 0
         for course in self.grades:
@@ -35,7 +32,6 @@ class Lecturer(Mentor):
 
 
 class Reviewer(Mentor):
-    """Класс для экспертов, проверяющих домашние задания"""
 
     def __init__(self, name, surname, courses_attached):
         super().__init__(name, surname, courses_attached)
@@ -44,15 +40,13 @@ class Reviewer(Mentor):
         return super().__str__()
 
     def set_grade(self, student, course, grade):
-        """Выставляет оценку студенту за домашнее задание"""
-    def set_grade(self, student, course, grade):
         if course not in student.grades:
             student.grades[course] = []
         student.grades[course].append(grade)
 
 
 class Student:
-    """Класс для студентов"""
+
 
     def __init__(self, name, surname, courses_in_progress=None, finished_courses=None):
         self.name = name
@@ -66,7 +60,6 @@ class Student:
         return f"Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания: {average_grade:.1f}\nКурсы в процессе изучения: {', '.join(self.courses_in_progress)}\nЗавершенные курсы: {', '.join(self.finished_courses)}"
 
     def get_average_grade(self):
-        """Возвращает среднюю оценку за домашние задания"""
         total_grades = 0
         num_grades = 0
         for course in self.grades:
@@ -78,7 +71,6 @@ class Student:
             return 0.0
 
     def rate_lecturer(self, lecturer, course, grade):
-        """Выставляет оценку лектору за лекцию"""
         if course in lecturer.courses_attached and course in self.courses_in_progress:
             if course in lecturer.grades:
                 lecturer.grades[course].append(grade)
@@ -88,7 +80,7 @@ class Student:
             print(f"Ошибка: Лектор {lecturer.name} {lecturer.surname} не ведет курс {course} или студент {self.name} {self.surname} не записан на этот курс.")
 
     def finish_course(self, course):
-        """Добавляет курс в список завершенных"""
+
         if course in self.courses_in_progress:
             self.courses_in_progress.remove(course)
             self.finished_courses.append(course)
@@ -96,31 +88,25 @@ class Student:
             print(f"Ошибка: Студент {self.name} {self.surname} не записан на курс {course}")
 
     def __lt__(self, other):
-        """Сравнивает студентов по средней оценке за домашние задания"""
         return self.get_average_grade() < other.get_average_grade()
 
     def __gt__(self, other):
-        """Сравнивает студентов по средней оценке за домашние задания"""
         return self.get_average_grade() > other.get_average_grade()
 
     def __le__(self, other):
         return self.get_average_grade() <= other.get_average_grade()
 
     def __ge__(self, other):
-        """Сравнивает студентов по средней оценке за домашние задания"""
         return self.get_average_grade() >= other.get_average_grade()
 
     def __eq__(self, other):
-        """Сравнивает студентов по средней оценке за домашние задания"""
         return self.get_average_grade() == other.get_average_grade()
 
     def __ne__(self, other):
-        """Сравнивает студентов по средней оценке за домашние задания"""
         return self.get_average_grade() != other.get_average_grade()
 
 
 class Lecturer(Mentor):
-    """Класс для лекторов"""
 
     def __init__(self, name, surname, courses_attached):
         super().__init__(name, surname, courses_attached)
@@ -131,7 +117,6 @@ class Lecturer(Mentor):
         return f"{super().__str__()}\nСредняя оценка за лекции: {average_grade:.1f}"
 
     def get_average_grade(self):
-        """Возвращает среднюю оценку за лекции"""
         total_grades = 0
         num_grades = 0
         for course in self.grades:
@@ -143,32 +128,25 @@ class Lecturer(Mentor):
             return 0.0
 
     def __lt__(self, other):
-        """Сравнивает лекторов по средней оценке за лекции"""
         return self.get_average_grade() < other.get_average_grade()
 
     def __gt__(self, other):
-        """Сравнивает лекторов по средней оценке за лекции"""
         return self.get_average_grade() > other.get_average_grade()
 
     def __le__(self, other):
-        """Сравнивает лекторов по средней оценке за лекции"""
         return self.get_average_grade() <= other.get_average_grade()
 
     def __ge__(self, other):
-        """Сравнивает лекторов по средней оценке за лекции"""
         return self.get_average_grade() >= other.get_average_grade()
 
     def __eq__(self, other):
-        """Сравнивает лекторов по средней оценке за лекции"""
         return self.get_average_grade() == other.get_average_grade()
 
     def __ne__(self, other):
-        """Сравнивает лекторов по средней оценке за лекции"""
         return self.get_average_grade() != other.get_average_grade()
 
 
 def calculate_average_grade_for_students(students, course):
-    """Подсчитывает среднюю оценку за домашние задания по всем студентам в рамках конкретного курса"""
     grades = []
     for student in students:
         if course in student.grades:
@@ -180,7 +158,6 @@ def calculate_average_grade_for_students(students, course):
 
 
 def calculate_average_grade_for_lecturers(lecturers, course):
-    """Подсчитывает среднюю оценку за лекции всех лекторов в рамках курса"""
     grades = []
     for lecturer in lecturers:
         if course in lecturer.grades:
